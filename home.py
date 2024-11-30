@@ -1,7 +1,7 @@
 import streamlit as st
 import jwt
 import os
-from src.compile import translate
+
 
 
 def render_page():
