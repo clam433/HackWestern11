@@ -21,25 +21,35 @@ def render_home():
         
         if submit_button:
             if username and email and password:
-                # Hash the password before storing
-                hashed_password = hashlib.sha256(password.encode()).hexdigest()
                 
-                # Insert the user data into MongoDB
-                user_data = {
-                    "username": username,
-                    "email": email,
-                    "password": hashed_password
-                }
-                
-                # Insert the data into the 'users' collection
-                result = collection.insert_one(user_data)
-                
-                # Confirm sign-up
-                st.write(f"Sign-up successful! User ID: {result.inserted_id}")
-                # Set the page to 'login' after successful signup
-                st.session_state.page = "login"  # Set session state to 'login' to redirect
+                # Check if username or email already exists
+                if collection.find_one({"username": username}):
+                    st.warning("Username already exists. Please choose a different one.")
+                elif collection.find_one({"email": email}):
+                    st.warning("Email already registered. Please use a different one.")
+                else:
+                    # Hash the password before storing
+                    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+                    
+                    # Insert the user data into MongoDB
+                    user_data = {
+                        "username": username,
+                        "email": email,
+                        "password": hashed_password
+                    }
+                    
+                    # Insert the data into the 'users' collection
+                    result = collection.insert_one(user_data)
+                    
+                    # Confirm sign-up
+                    st.write(f"Sign-up successful! User ID: {result.inserted_id}")
+                    # Set the page to 'login' after successful signup
+                    st.session_state.page = "login"
+
             else:
                 st.warning("Please fill in all fields.")
 
     if st.button("Back to Main Page"):
         st.session_state.page = "main"  # Go back to the main page
+    elif st.button("Have an Account"):
+        st.session_state.page = "login"
