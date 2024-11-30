@@ -8,8 +8,13 @@ def render_page():
                 Hello World
             </h1>
             """, unsafe_allow_html=True)
-        if st.button("Back to Main Page"):
-            st.session_state.page = "main"  # Go back to the main page
+        
+        if st.button("Logout"):
+        # Clear session state related to login
+            if "jwt_token" in st.session_state:
+                del st.session_state["jwt_token"]  # Remove the JWT token
+            if "logged_in" in st.session_state:
+                del st.session_state["logged_in"]  # Remove the login status flag  # Go back to the main page
         
         # Text area in the sidebar
         txt = st.text_area(
