@@ -45,7 +45,6 @@ def render_home():
                     st.write(f"Sign-up successful! User ID: {result.inserted_id}")
                     # Set the page to 'login' after successful signup
                     st.session_state.page = "login"
-
             else:
                 st.warning("Please fill in all fields.")
 
