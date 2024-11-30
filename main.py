@@ -1,6 +1,7 @@
 import streamlit as st
 import signup  # Import the signup.py file
 import login  # Import the login.py file
+import home
 
 def main():
     # Include the custom CSS
@@ -18,7 +19,9 @@ def main():
     elif st.session_state.page == "signup":
         signup.render_home()  # Call the function in signup.py to render signup page content
     elif st.session_state.page == "login":
-        login.render_page()  # Call the login page rendering logic when page is 'login'
+        login.render_login()  # Call the login page rendering logic when page is 'login'
+    elif st.session_state.page == "home":
+        home.render_page()  # Call the login page rendering logic when page is 'login'
 
 if __name__ == '__main__':
     main()
