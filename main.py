@@ -1,5 +1,6 @@
 import streamlit as st
-import home  # Import the home.py file
+import signup  # Import the signup.py file
+import login  # Import the login.py file
 
 def main():
     # Include the custom CSS
@@ -8,15 +9,16 @@ def main():
 
     # Landing page logic
     if "page" not in st.session_state:
-        st.session_state.page = "home"
+        st.session_state.page = "main"  # Default to 'main' page if not set
 
-    if st.session_state.page == "home":
+    if st.session_state.page == "main":
         st.title("CodeSwitch")
-        if st.button("Go to home"):
-            st.session_state.page = "home_page"  # Update state to navigate to the home page
-            # No need for st.experimental_rerun(), Streamlit will automatically rerun after the state changes
-    elif st.session_state.page == "home_page":
-        home.render_home()  # Call the function in home.py to render home page content
+        if st.button("Signup"):
+            st.session_state.page = "signup"  # Update state to navigate to the signup page
+    elif st.session_state.page == "signup":
+        signup.render_home()  # Call the function in signup.py to render signup page content
+    elif st.session_state.page == "login":
+        login.render_page()  # Call the login page rendering logic when page is 'login'
 
 if __name__ == '__main__':
     main()
