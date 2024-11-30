@@ -11,8 +11,8 @@ def main():
         st.session_state.page = "home"
 
     if st.session_state.page == "home":
-        st.title("Programmer Translator")
-        if st.button("Go to Next Page"):
+        st.title("CodeSwitch")
+        if st.button("Go to home"):
             st.session_state.page = "home_page"  # Update state to navigate to the home page
             # No need for st.experimental_rerun(), Streamlit will automatically rerun after the state changes
     elif st.session_state.page == "home_page":
