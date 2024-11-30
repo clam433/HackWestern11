@@ -5,22 +5,29 @@ import os
 
 
 def render_page():
-    st.title("Hello World")
-    
-    if st.button("Logout"):
-    # Clear session state related to login
-        if "jwt_token" in st.session_state:
-            del st.session_state["jwt_token"]  # Remove the JWT token
-        if "logged_in" in st.session_state:
-            del st.session_state["logged_in"]  # Remove the login status flag
+    # Create a sidebar for the fixed elements
+    with st.sidebar:
+        st.markdown("""
+            <h1 style='font-size: 40px; text-align: left; color: #4A90E2; margin-bottom: 0px;'>
+                Hello World
+            </h1>
+            """, unsafe_allow_html=True)
         
-        st.session_state.page = "main"  # Go back to the main page
+        if st.button("Logout"):
+        # Clear session state related to login
+            if "jwt_token" in st.session_state:
+                del st.session_state["jwt_token"]  # Remove the JWT token
+            if "logged_in" in st.session_state:
+                del st.session_state["logged_in"]  # Remove the login status flag  # Go back to the main page
+        
+        # Text area in the sidebar
+        txt = st.text_area(
+            "Text to translate *",
+            "",
+            height=150
+        )
 
-    txt = st.text_area(
-        "Text to translate *",
-        "",
-    )
-
+    # Expandable sections for the dynamic elements
     with st.expander("Select language to translate from:"):
         from_language = st.selectbox(
             'Select language to translate from: *',
