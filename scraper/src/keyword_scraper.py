@@ -1,5 +1,5 @@
 """
-This file scrapes keywords from this beautiful github repo:
+This file scrapes keywords from this beautiful repo:
 https://github.com/e3b0c442/keywords
 
 Many thanks to e3b0c442 for compiling this data.
@@ -11,8 +11,9 @@ import csv
 import json
 from collections import defaultdict
 
-CSV_EXPORT_DIR = "../../data/csv/"
-JSON_EXPORT_DIR = "../../data/json/"
+BASE_DIR = "../../data/keywords/"
+CSV_EXPORT_DIR = BASE_DIR + "csv/"
+JSON_EXPORT_DIR = BASE_DIR + "json/"
 
 def scrape_keywords(document: str):
     # Dictionary to store programming languages and their keywords
