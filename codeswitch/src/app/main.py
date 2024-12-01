@@ -4,6 +4,8 @@ import login  # Import the login.py file
 import home
 import jwt  # PyJWT for JWT handling
 import datetime
+from projects import ProjectList
+from test import Test
 
 # Secret key for JWT
 JWT_SECRET = "your_secret_key"  # Replace this with your actual secret key
@@ -34,9 +36,12 @@ def main():
     if st.session_state.page == "main":
         st.title("CodeSwitch")
         if st.button("Signup"):
-            st.session_state.page = "signup"  # Navigate to the signup page
+            st.session_state.page = "signup" 
+            st.rerun()
+ # Navigate to the signup page
         if st.button("Login"):
             st.session_state.page = "login"  # Navigate to the login page
+            st.rerun()
     elif st.session_state.page == "signup":
         signup.render_home()  # Render signup page content
     elif st.session_state.page == "login":
@@ -52,10 +57,13 @@ def main():
             else:
                 # Invalid token, redirect to login
                 st.session_state.page = "login"
+                login.render_login()
         else:
             # No token found, redirect to login
-            st.warning("You need to log test_in to access this page.")
             st.session_state.page = "login"
+            login.render_login()
+    elif st.session_state.page =="projects":
+        ProjectList.render_projects()
 
 if __name__ == '__main__':
     main()
