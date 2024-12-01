@@ -16,7 +16,7 @@ collection = db['users']  # Collection name
 def generate_jwt_token(id, username):
     """Generates a JWT token for the authenticated user."""
     payload = {
-        "id": id,
+        "id": id.__str__(),
         "username": username,
         "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)  # Token expires test_in 1 hour
     }

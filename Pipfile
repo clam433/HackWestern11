@@ -13,6 +13,11 @@ pygments = "*"
 transformers = "*"
 tensorflow = "*"
 tf-keras = "*"
+streamlit = "*"
+pyjwt = "*"
+streamlit-auth0-component = "*"
+streamlit-authenticator = "*"
+streamlit-code-editor = "*"
 
 [dev-packages]
 

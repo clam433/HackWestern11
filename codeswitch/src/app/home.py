@@ -1,41 +1,143 @@
 import streamlit as st
-import jwt
-import os
-from keywords import KeywordsTable
+from code_editor import code_editor
+from app.keywords import KeywordsTable
 
-def render_page():
+def home_page(lang="python", do_plain_text_edit=False):
     popup = st.empty()
 
     # Create a sidebar for the fixed elements
-    with st.sidebar:
-        st.markdown("""
-            <h1 style='font-size: 40px; text-align: left; color: #4A90E2; margin-bottom: 0px;'>
-                Translate your code
-            </h1>
-            """, unsafe_allow_html=True)
-        
-        if st.button("Logout"):
-        # Clear session state related to login
-            if "jwt_token" in st.session_state:
-                del st.session_state["jwt_token"]  # Remove the JWT token
-            if "logged_in" in st.session_state:
-                del st.session_state["logged_in"]  # Remove the login status flag  # Go back to the main page
-            st.rerun()
-        if st.button("Exit"):
-            st.session_state.page = "projects"
-            st.rerun()
-        
-        # Text area test_in the sidebar
+    # Text area test_in the sidebar
+    if do_plain_text_edit:
         txt = st.text_area(
-            "Text to translate *",
-            "",
-            height=150
+            "Code Editor",
+            placeholder="Enter code here...",
+            height=600
+        )
+    else:
+        editor_buttons = [
+            {
+                "name": "Copy",
+                "feather": "Copy",
+                "hasText": True,
+                "alwaysOn": True,
+                "commands": [
+                    "copyAll",
+                    [
+                        "infoMessage",
+                        {
+                            "text": "Copied to clipboard!",
+                            "timeout": 2500,
+                            "classToggle": "show"
+                        }
+                    ]
+                ],
+                "style": {
+                    "top": "-0.25rem",
+                    "right": "0.4rem"
+                }
+            },
+            {
+                "name": "Shortcuts",
+                "feather": "Type",
+                "class": "shortcuts-button",
+                "hasText": True,
+                "commands": [
+                    "toggleKeyboardShortcuts",
+                    [
+                        "conditionalExecute",
+                        {
+                            "targetQueryString": "#kbshortcutmenu",
+                            "condition": True,
+                            "command": [
+                                "infoMessage",
+                                {
+                                    "text": "VSCode keyboard shortcuts",
+                                    "timeout": 2500,
+                                    "classToggle": "show"
+                                }
+                            ]
+                        }
+                    ]
+                ],
+                "style": {
+                    "bottom": "calc(50% + 1.75rem)",
+                    "right": "0.4rem"
+                }
+            },
+            {
+                "name": "Collapse",
+                "feather": "Minimize2",
+                "hasText": True,
+                "commands": [
+                    "selectall",
+                    "toggleSplitSelectionIntoLines",
+                    "gotolinestart",
+                    "gotolinestart",
+                    "backspace"
+                ],
+                "style": {
+                    "bottom": "calc(50% - 1.25rem)",
+                    "right": "0.4rem"
+                }
+            },
+            {
+                "name": "Save",
+                "feather": "Save",
+                "hasText": True,
+                "commands": [
+                    "save-state",
+                    [
+                        "response",
+                        "saved"
+                    ]
+                ],
+                "response": "saved",
+                "style": {
+                    "bottom": "calc(50% - 4.25rem)",
+                    "right": "0.4rem"
+                }
+            },
+            {
+                "name": "Run",
+                "feather": "Play",
+                "primary": True,
+                "hasText": True,
+                "showWithIcon": True,
+                "commands": [
+                    "submit"
+                ],
+                "style": {
+                    "bottom": "0.44rem",
+                    "right": "0.4rem"
+                }
+            },
+            {
+                "name": "Command",
+                "feather": "Terminal",
+                "primary": True,
+                "hasText": True,
+                "commands": [
+                    "openCommandPallete"
+                ],
+                "style": {
+                    "bottom": "3.5rem",
+                    "right": "0.4rem"
+                }
+            }
+        ]
+        response_dict = code_editor(
+            code="",
+            ghost_text="Enter code here...",
+            height="600px",
+            lang=lang,
+            focus=True,
+            buttons=editor_buttons,
+            theme="dark",
+            shortcuts="vscode"
         )
 
-        
-
     # Expandable sections for the dynamic elements
-    with st.expander("Select language to translate from:"):
+    with st.sidebar:
         from_language = st.selectbox(
             'Select language to translate from: *',
             ('English', 'French', 'New+'),
@@ -69,7 +171,7 @@ def render_page():
                         'Citydssss': ['New York', 'London', 'Paris', 'Tokyo', 'timbuktu','aaaaaa','aaaaaa','aaaaa'],
                     })
 
-    with st.expander("Select language to translate to:"):
+    with st.sidebar:
         to_language = st.selectbox(
             'Select language to translate to: *',
             ('English', 'French', 'New+'),
@@ -103,14 +205,15 @@ def render_page():
                         'City': ['New York', 'London', 'Paris', 'Tokyo'],
                     })
 
-    if st.button("Translate"):
-        if not txt:
-            st.error("Text to translate is required")
-        elif from_language == '':
-            st.error("Source language must be selected")
-        elif from_language == 'New+' and not new_from_language:
-            st.error("Please specify the new source language")
-        elif to_language == '':
-            st.error("Output language must be selected")
-        elif to_language == 'New+' and not new_to_language:
-            st.error("Please specify the new output language")
+        if st.button("Translate"):
+            if not txt:
+                st.error("Text to translate is required")
+            elif from_language == '':
+                st.error("Source language must be selected")
+            elif from_language == 'New+' and not new_from_language:
+                st.error("Please specify the new source language")
+            elif to_language == '':
+                st.error("Output language must be selected")
+            elif to_language == 'New+' and not new_to_language:
+                st.error("Please specify the new output language")
+
