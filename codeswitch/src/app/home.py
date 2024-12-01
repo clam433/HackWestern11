@@ -3,6 +3,8 @@ import jwt
 import os
 from keywords import KeywordsTable
 
+
+
 def render_page():
     popup = st.empty()
 
@@ -31,10 +33,15 @@ def render_page():
             "",
             height=150
         )
-
+        if "projects" in st.session_state:
+            for project in st.session_state.projects:
+                st.write(f"Language: {project.getLanguage()}")
+        else:
+            st.warning("No projects found.")
         
 
     # Expandable sections for the dynamic elements
+    
     with st.expander("Select language to translate from:"):
         from_language = st.selectbox(
             'Select language to translate from: *',
