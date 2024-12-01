@@ -21,7 +21,9 @@ def render_page():
             if "logged_in" in st.session_state:
                 del st.session_state["logged_in"]  # Remove the login status flag  # Go back to the main page
             st.rerun()
-            
+        if st.button("Exit"):
+            st.session_state.page = "projects"
+            st.rerun()
         
         # Text area test_in the sidebar
         txt = st.text_area(
@@ -29,6 +31,8 @@ def render_page():
             "",
             height=150
         )
+
+        
 
     # Expandable sections for the dynamic elements
     with st.expander("Select language to translate from:"):
