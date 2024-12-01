@@ -56,6 +56,7 @@ def main():
             # No token found, redirect to login
             st.warning("You need to log test_in to access this page.")
             st.session_state.page = "login"
+            login.render_login()
 
 if __name__ == '__main__':
     main()
