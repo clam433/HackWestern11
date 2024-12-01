@@ -12,8 +12,9 @@ class ProjectList:
                             color:#ffffff;
                         }
                         div.stButton > button:hover {
-                            background-color: #00ff00;
-                            color:#ff0000;
+                            background-color: #ffffff;
+                            color:#0099ff;
+                            border-decoration: none;
                             }
                         </style>""", unsafe_allow_html=True)
         st.markdown("""
@@ -28,3 +29,7 @@ class ProjectList:
                 user_string = ", ".join(user_list)
                 st.write(f"Users: {user_string}")
                 st.write("Language: " + project.getLanguage())
+
+                if st.button("Select project", key=project.getProjectName()):
+                    st.session_state.page = "home"
+                    st.rerun()
