@@ -22,6 +22,13 @@ class ProjectList:
                 Projects
             </h1>
             """, unsafe_allow_html=True)
+        if st.button("Logout"):
+            if "jwt_token" in st.session_state:
+                del st.session_state["jwt_token"]  # Remove the JWT token
+            if "logged_in" in st.session_state:
+                del st.session_state["logged_in"]  # Remove the login status flag  # Go back to the main page
+            st.session_state.page = "login"
+            st.rerun()
 
         for project in self.projects:
             with st.expander(project.getProjectName()):
