@@ -11,7 +11,7 @@ def translate_token(word, lookup_table, do_truncate=True):
             return value
     return word  # If no match is found, return the original word
 
-def make_sentence(sentence, lang):
+def group_tokens(sentence, lang):
     # Define language-specific comment syntax
     language_comments = {
         "javascript": r'//.*|/\*.*?\*/',
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     print(translate_token("let", my_dict, True))  # Output: lai
 
     # Example usage
-    sentence = "let i = 5 + 6 \n /*** This is a Python comment **/"
+    sentence = "let i = 5 + 6 \n /*** This is a Python comment **/ \"This is a string\""
     language = "java"
-    result = make_sentence(sentence, language)
+    result = group_tokens(sentence, language)
     print(result)
