@@ -1,4 +1,5 @@
 import requests
+from db.db import TranslateLookup
 from services.translate_service.secrets import API_BASE_URL, headers
 
 def _run(model, input):
@@ -10,6 +11,7 @@ def _run(model, input):
         return response.text
 
 def translate(text: str, source_lang: str, target_lang: str) -> str:
+    # call api on text
     response = _run('@cf/meta/m2m100-1.2b', {
         "text": text,
         "source_lang": source_lang,
@@ -17,7 +19,7 @@ def translate(text: str, source_lang: str, target_lang: str) -> str:
     })
 
     if not response["success"]:
-        raise Exception("Translation failed")
+        raise Exception(f"Translation failed. Text: {text}. Response: ", response)
     else:
         result = response["result"]
         return result["translated_text"]
@@ -32,4 +34,5 @@ def main():
     print(output)
 
 if __name__ == "__main__":
-    main()
+    # main()
+    print(TranslateLookup.objects())

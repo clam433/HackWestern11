@@ -9,6 +9,10 @@ python-levenshtein = "*"
 tqdm = "*"
 pymongo = "*"
 mongoengine = "*"
+pygments = "*"
+transformers = "*"
+tensorflow = "*"
+tf-keras = "*"
 
 [dev-packages]
 
