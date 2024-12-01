@@ -15,10 +15,10 @@ def verify_jwt(token):
         decoded_token = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
         return decoded_token  # Return decoded data if valid
     except jwt.ExpiredSignatureError:
-        st.warning("Session expired. Please log in again.")
+        st.warning("Session expired. Please log test_in again.")
         return None
     except jwt.InvalidTokenError:
-        st.warning("Invalid token. Please log in.")
+        st.warning("Invalid token. Please log test_in.")
         return None
 
 def main():
@@ -54,7 +54,7 @@ def main():
                 st.session_state.page = "login"
         else:
             # No token found, redirect to login
-            st.warning("You need to log in to access this page.")
+            st.warning("You need to log test_in to access this page.")
             st.session_state.page = "login"
 
 if __name__ == '__main__':
