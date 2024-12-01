@@ -9,7 +9,7 @@ def process_code_file(input_path: str, output_path: str, write=True):
     with open(input_file_path, 'r') as input_file:
         content = input_file.read()
 
-    # Process the content (if needed)
+    # Process the content
     # For this example, we will just copy the content as is
     processed_content = process_code(content)
 
@@ -23,8 +23,9 @@ def process_code_file(input_path: str, output_path: str, write=True):
         print(processed_content)
 
 def process_code(content: str) -> str:
-    # Process the content (if needed)
-    # For this example, we will just copy the content as is
+    # Process the content
+
+    # convert keywords
     processed_content = content
     return processed_content
 

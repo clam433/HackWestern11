@@ -20,7 +20,7 @@ def render_page():
             if "logged_in" in st.session_state:
                 del st.session_state["logged_in"]  # Remove the login status flag  # Go back to the main page
         
-        # Text area in the sidebar
+        # Text area test_in the sidebar
         txt = st.text_area(
             "Text to translate *",
             "",

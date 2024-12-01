@@ -17,7 +17,7 @@ def generate_jwt_token(username):
     """Generates a JWT token for the authenticated user."""
     payload = {
         "username": username,
-        "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)  # Token expires in 1 hour
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)  # Token expires test_in 1 hour
     }
     token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
     return token
@@ -45,7 +45,7 @@ def render_login():
                         # Generate JWT token
                         token = generate_jwt_token(username)
                         
-                        # Store token in session state
+                        # Store token test_in session state
                         st.session_state["jwt_token"] = token
                         st.session_state["logged_in"] = True  # Flag to track successful login
 
@@ -58,10 +58,10 @@ def render_login():
                     st.warning("Username not found. Please check your credentials.")
                     st.session_state["logged_in"] = False
             else:
-                st.warning("Please fill in both fields.")
+                st.warning("Please fill test_in both fields.")
                 st.session_state["logged_in"] = False
 
-    # Check if the user is logged in, then show the button to go to the home page
+    # Check if the user is logged test_in, then show the button to go to the home page
     if st.session_state.get("logged_in"):
         if st.button("Go to Home"):
             st.session_state.page = "home"  # Redirect to home page

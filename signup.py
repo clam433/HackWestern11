@@ -46,7 +46,7 @@ def render_home():
                     # Set the page to 'login' after successful signup
                     st.session_state.page = "login"
             else:
-                st.warning("Please fill in all fields.")
+                st.warning("Please fill test_in all fields.")
 
     if st.button("Back to Main Page"):
         st.session_state.page = "main"  # Go back to the main page
