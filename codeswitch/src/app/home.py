@@ -1,10 +1,11 @@
 import streamlit as st
 import jwt
 import os
-
-
+from keywords import KeywordsTable
 
 def render_page():
+    popup = st.empty()
+
     # Create a sidebar for the fixed elements
     with st.sidebar:
         st.markdown("""
@@ -50,6 +51,17 @@ def render_page():
             if generate_keywords_source:
                 if not new_from_language:
                     st.warning("Please enter a source language")
+                else:
+                    with popup.container():
+                        KeywordsTable({
+                        'Name': ['John', 'Jane', 'Bob', 'Alice', 'timbuktu','aaaaaa','aaaaaa','aaaaa'],
+                        'Age': [29, 30, 35, 28, 222, 21, 223, 22],
+                        'City': ['New York', 'London', 'Paris', 'Tokyo', 'timbuktu','aaaaaa','aaaaaa','aaaaa'],
+                        'CItay': ['New York', 'London', 'Paris', 'Tokyo', 'timbuktu','aaaaaa','aaaaaa','aaaaa'],
+                        'CiITA': ['New York', 'London', 'Paris', 'Tokyo', 'timbuktu','aaaaaa','aaaaaa','aaaaa'],
+                        'Cityyyyy': ['New York', 'London', 'Paris', 'Tokyo', 'timbuktu','aaaaaa','aaaaaa','aaaaa'],
+                        'Citydssss': ['New York', 'London', 'Paris', 'Tokyo', 'timbuktu','aaaaaa','aaaaaa','aaaaa'],
+                    })
 
     with st.expander("Select language to translate to:"):
         to_language = st.selectbox(
@@ -73,6 +85,17 @@ def render_page():
             if generate_keywords_output:
                 if not new_to_language:
                     st.warning("Please enter an output language")
+                else:
+                    with popup.container():
+                        KeywordsTable({
+                        'Name': ['John', 'Jane', 'Bob', 'Alice'],
+                        'Age': [29, 30, 35, 28],
+                        'City': ['New York', 'London', 'Paris', 'Tokyo'],
+                        'CItay': ['New York', 'London', 'Paris', 'Tokyo'],
+                        'CiITA': ['New York', 'London', 'Paris', 'Tokyo'],
+                        'City': ['New York', 'London', 'Paris', 'Tokyo'],
+                        'City': ['New York', 'London', 'Paris', 'Tokyo'],
+                    })
 
     if st.button("Translate"):
         if not txt:

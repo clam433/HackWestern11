@@ -1,5 +1,5 @@
 import streamlit as st
-import signup  # Import the signup.py file
+import signup as signup  # Import the signup.py file
 import login  # Import the login.py file
 import home
 import jwt  # PyJWT for JWT handling
