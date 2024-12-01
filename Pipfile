@@ -4,9 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+fuzzywuzzy = "*"
+python-levenshtein = "*"
+tqdm = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.12"
-python_full_version = "3.12.0"
