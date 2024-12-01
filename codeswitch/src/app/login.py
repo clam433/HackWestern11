@@ -63,11 +63,15 @@ def render_login():
 
     # Check if the user is logged test_in, then show the button to go to the home page
     if st.session_state.get("logged_in"):
-        if st.button("Go to Home"):
-            st.session_state.page = "home"  # Redirect to home page
+        if st.button("Select your project"):
+            st.session_state.page = "projects"  # Redirect to home page
+            st.rerun()
 
     # Navigation buttons
     if st.button("Back to Main Page"):
-        st.session_state.page = "main"  # Go back to the main page
+        st.session_state.page = "main"
+        st.rerun() # Go back to the main page
     elif st.button("Don't have an account"):
         st.session_state.page = "signup"  # Go to signup page
+        st.rerun()
+

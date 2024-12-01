@@ -2,7 +2,6 @@ import os
 import csv
 from tqdm import tqdm
 from fuzzywuzzy import process
-
 from services.translate_service.main import translate
 
 DATA_DIR_PATH = "../../data"
@@ -16,7 +15,7 @@ def get_available_code_langs():
     """
     return [name for name in os.listdir(KEYWORD_DATA_PATH) if os.path.isdir(os.path.join(KEYWORD_DATA_PATH, name))]
 
-def get_keywords(code_lang: str, code_version: str) -> []:
+def get_keywords(code_lang: str, code_version: str) -> []: # type: ignore
     available_langs = get_available_code_langs()
 
     # Use fuzzy matching to find the best match

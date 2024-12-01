@@ -10,7 +10,7 @@ def render_page():
     with st.sidebar:
         st.markdown("""
             <h1 style='font-size: 40px; text-align: left; color: #4A90E2; margin-bottom: 0px;'>
-                Hello World
+                Translate your code
             </h1>
             """, unsafe_allow_html=True)
         
@@ -20,6 +20,8 @@ def render_page():
                 del st.session_state["jwt_token"]  # Remove the JWT token
             if "logged_in" in st.session_state:
                 del st.session_state["logged_in"]  # Remove the login status flag  # Go back to the main page
+            st.rerun()
+            
         
         # Text area test_in the sidebar
         txt = st.text_area(
@@ -65,7 +67,7 @@ def render_page():
 
     with st.expander("Select language to translate to:"):
         to_language = st.selectbox(
-            'Select language to translate to:',
+            'Select language to translate to: *',
             ('English', 'French', 'New+'),
             key="to_language_selector"
         )

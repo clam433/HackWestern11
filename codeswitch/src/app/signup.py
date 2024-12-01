@@ -50,5 +50,8 @@ def render_home():
 
     if st.button("Back to Main Page"):
         st.session_state.page = "main"  # Go back to the main page
+        st.rerun()
     elif st.button("Have an Account"):
         st.session_state.page = "login"
+        st.rerun()
+
