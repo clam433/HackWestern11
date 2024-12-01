@@ -63,12 +63,7 @@ def main():
             st.session_state.page = "login"
             login.render_login()
     elif st.session_state.page =="projects":
-        test1 = Test("Blockchain", ["Luca, Vanessa, Someone"], "Python")
-        test2 = Test("Scraper", ["Chris, Thevindu, Someone"], "Java")
-        test3 = Test("Website", ["Aly, Ali, Aleee"], "C++")
-        test_list = [test1, test2, test3]
-        p = ProjectList(test_list)
-        p.render_projects()
+        ProjectList.render_projects()
 
 if __name__ == '__main__':
     main()

@@ -13,9 +13,10 @@ client = MongoClient("mongodb+srv://christopherl4n:108993mW@codeswitch.5snsl.mon
 db = client['CodeSwitch']  # Database name
 collection = db['users']  # Collection name
 
-def generate_jwt_token(username):
+def generate_jwt_token(id, username):
     """Generates a JWT token for the authenticated user."""
     payload = {
+        "id": id,
         "username": username,
         "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)  # Token expires test_in 1 hour
     }
@@ -42,9 +43,9 @@ def render_login():
                     hashed_password = hashlib.sha256(password.encode()).hexdigest()
                     
                     if user["password"] == hashed_password:
+                        id = user["_id"]
                         # Generate JWT token
-                        token = generate_jwt_token(username)
-                        
+                        token = generate_jwt_token(id, username)
                         # Store token test_in session state
                         st.session_state["jwt_token"] = token
                         st.session_state["logged_in"] = True  # Flag to track successful login

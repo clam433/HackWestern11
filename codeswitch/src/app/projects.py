@@ -1,8 +1,29 @@
+import token
 import streamlit as st
+import jwt
+from db.db import get_users_projects, get_projects_languages
+
+from codeswitch.src.app.login import JWT_ALGORITHM, JWT_SECRET
 
 class ProjectList:
-    def __init__(self, projects):
-        self.projects = projects
+    def __init__(self):
+        self.username = self.extract_id()
+        self.projects = get_users_projects(self.username)
+       
+    def extract_id():
+        try:
+        # Decode the JWT token to get the payload
+            payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+            # Extract the username from the payload
+            username = payload.get("username")
+            id = payload.get("id")
+            return id
+        except jwt.ExpiredSignatureError:
+            st.warning("Session expired. Please log in again.")
+            return None
+        except jwt.InvalidTokenError:
+            st.warning("Invalid token. Please log in again.")
+            return None
 
     def render_projects(self):
         m = st.markdown("""
@@ -30,13 +51,15 @@ class ProjectList:
             st.session_state.page = "login"
             st.rerun()
 
+        count = 0
         for project in self.projects:
-            with st.expander(project.getProjectName()):
-                user_list = project.getUserList()
+            count += 1
+            with st.expander("Project " + str(count)):
+                user_list = project.get_projects_users()
                 user_string = ", ".join(user_list)
                 st.write(f"Users: {user_string}")
-                st.write("Language: " + project.getLanguage())
+                st.write("Language: " + project.get_projects_language())
 
-                if st.button("Select project", key=project.getProjectName()):
+                if st.button("Select project", key=count):
                     st.session_state.page = "home"
                     st.rerun()
